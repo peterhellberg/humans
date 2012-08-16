@@ -14,35 +14,64 @@ module HumansTxt
 
     def parse
       data = {
-        team: [],
-        site: {}
+        team:   [],
+        thanks: [],
+        site:   {}
       }
 
       cs = ''
       cf = ''
       ct = {}
+      th = {}
 
       f = txt.split("\n").each_with_object(data) do |l,d|
-        if m = l.match(/^\/\* ([A-Z]+) \*\/$/)
+        if m = l.strip.match(/^\/\* ([A-Z]+) \*\/$/)
           cs = m[1].downcase.to_sym
         else
           if cs == :team
-            if l.match(/^$/) && !ct.empty?
+            if l.strip.match(/^$/) && !ct.empty?
               d[:team] << ct
               ct = {}
             else
               if m = l.strip.match(/(.+?):\s*(.+)/)
                 if ct.empty?
-                  ct[:name] = m[2]
                   ct[:role] = m[1]
+                  ct[:name] = m[2]
                 else
-                  cf = m[1].gsub(' ', '_').downcase.gsub('e-mail', 'email').to_sym
+                  cf = m[1].
+                    gsub(' ', '_').
+                    downcase.
+                    gsub('e-mail', 'contact').
+                    gsub('email', 'contact').
+                    to_sym
+
                   cv = m[2]
 
                   cv = cv.sub('@', 'https://twitter.com/') if cf == :twitter
-                  cv = cv.sub(' [at] ', '@').sub('[at]', '@') if cf == :email
+                  cv = cv.sub(' [at] ', '@').sub('[at]', '@') if cf == :contact
 
                   ct[cf] = cv
+                end
+              end
+            end
+          end
+
+          if cs == :thanks
+            if l.match(/^$/) && !th.empty?
+              d[:thanks] << th
+              th = {}
+            else
+              if m = l.strip.match(/(.+):\s{1,}(.+)/)
+                if th.empty?
+                  th[:role] = m[1]
+                  th[:name] = m[2]
+                else
+                  cf = m[1].gsub(' ', '_').downcase.to_sym
+                  cv = m[2]
+
+                  cv = cv.sub('@', 'https://twitter.com/') if cf == :twitter
+
+                  th[cf] = cv
                 end
               end
             end
@@ -76,13 +105,14 @@ module HumansTxt
 
               o = [d[:site][cf]].flatten << cv2
 
-              d[:site][cf] = o
+              d[:site][cf] = o.compact unless cf.empty?
             end
           end
         end
 
       end.tap { |h|
         h.delete(:site) if h[:site].empty?
+        h.delete(:thanks) if h[:thanks].empty?
       }
 
       if f[:team].empty? && !ct.empty?
