@@ -96,6 +96,8 @@ module HumansTxt
       end
 
       f
+    rescue ArgumentError => e
+      { error: e }
     end
   end
 end
