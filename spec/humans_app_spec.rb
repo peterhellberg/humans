@@ -8,6 +8,7 @@ end
 describe HumansApp do
   it "has a tagline" do
     get '/'
-    last_response.body.must_include 'Parsing your humans.txt into JSON'
+    last_response.body.must_include 'Parsing your'
+    last_response.body.must_include 'into JSON'
   end
 end
