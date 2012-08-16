@@ -6,7 +6,7 @@ GEM
     ffi (1.1.5)
     hiredis (0.4.5)
     kgio (2.7.4)
-    kicker (2.6.1)
+    kicker (3.0.0pre1)
       listen
     listen (0.4.7)
       rb-fchange (~> 0.0.5)
@@ -42,7 +42,7 @@ PLATFORMS
 DEPENDENCIES
   fakeredis (~> 0.4)
   hiredis (~> 0.4)
-  kicker
+  kicker (= 3.0.0pre1)
   minitest
   rack-test
   rake

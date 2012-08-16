@@ -16,7 +16,7 @@ end
 
 group :development do
   gem "rake"
-  gem "kicker"
+  gem "kicker", "3.0.0pre1"
   gem "minitest"
   gem "rack-test"
 end
