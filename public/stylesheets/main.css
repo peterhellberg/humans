@@ -123,7 +123,7 @@
   }
 }
 
-@media only screen and (max-device-width: 1000px) {
+@media screen and (max-width: 970px) {
   .wrapper {
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
@@ -171,11 +171,11 @@
   .hazel img {
     width: 160px;
     height: 64px;
+    margin-bottom: 32px;
   }
 
   .hazel {
     margin: 24px auto;
-    padding-bottom: 1em;
   }
 }
 
