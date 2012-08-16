@@ -16,6 +16,9 @@ class HumansApp < Sinatra::Base
 
   get "/:host" do
     content_type :json
-    JSON.dump HumansTxt.download_and_parse(params[:host], params[:use_ssl])
+
+    RedisCache.get("humans:#{params[:host]}") {
+      JSON.dump HumansTxt.download_and_parse(params[:host], params[:use_ssl])
+    }
   end
 end
