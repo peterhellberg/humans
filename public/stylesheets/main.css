@@ -123,6 +123,13 @@
   }
 }
 
+@media screen and (-webkit-max-device-pixel-ratio: 1.5) {
+  .hazel img {
+    width: 160px;
+    height: 64px;
+  }
+}
+
 @media screen and (max-width: 600px) {
   .wrapper {
     -moz-box-shadow: none;
@@ -136,7 +143,7 @@
     font-size: 3.2em;
     margin-bottom: 0.2em;
   }
-  
+
   .content {
     float: none;
     width: 100%;
