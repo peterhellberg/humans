@@ -6,6 +6,16 @@
     padding: 0;
   }
 
+  a, a:visited {
+    color: #E64B07;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: #E74B09;
+    text-decoration: underline;
+  }
+
   html, body {
     height: 100%;
     width: 100%;
