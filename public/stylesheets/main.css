@@ -17,6 +17,7 @@
   }
 
   html, body {
+    -webkit-text-size-adjust: none;
     height: 100%;
     width: 100%;
   }
@@ -142,7 +143,7 @@
 
   pre {
     padding: 0.5em 0.3em;
-    font-size: 12px;
+    font-size: 0.8em;
   }
 
   h1 {
@@ -163,17 +164,30 @@
   h4 {
     font-size: 14px;
   }
+
+  .hazel {
+    margin: 10px auto 24px auto;
+  }
+
+  .hazel img {
+    margin-bottom: 5px;
+  }
+
+  footer {
+    margin-top: 0.5em;
+    margin-bottom: 0.8em;
+  }
 }
 
 @media screen and (-webkit-max-device-pixel-ratio: 1.5) {
   .hazel img {
     width: 160px;
     height: 64px;
-    margin-bottom: 32px;
-  }
-
-  .hazel {
-    margin: 24px auto;
   }
 }
 
+@media only screen and (min-device-width : 320px) and (max-device-width : 1024px) {
+  html {
+    -webkit-text-size-adjust: none;
+  }
+}
