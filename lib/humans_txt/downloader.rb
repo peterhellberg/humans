@@ -46,8 +46,6 @@ module HumansTxt
       scheme = use_ssl ? 'https' : 'http'
       url = "#{scheme}://#{host}/humans.txt"
 
-      puts url
-
       res = open(url, "r:utf-8")
       res.status[0] == '200' ? res.read : ''
     end
