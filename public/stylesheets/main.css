@@ -127,6 +127,7 @@
     box-shadow: none;
     width: auto;
     margin: 0px auto;
+    padding: 0.2em;
   }
 
   header h1 {
