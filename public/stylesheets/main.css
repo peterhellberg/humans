@@ -123,7 +123,7 @@
   }
 }
 
-@media screen and (max-width: 970px) {
+@media only screen and (max-device-width: 1000px) {
   .wrapper {
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
