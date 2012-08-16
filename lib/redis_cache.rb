@@ -14,9 +14,9 @@ class RedisCache
     else
       value = yield
 
-      unless yield.nil?
+      unless value.nil?
         REDIS.setex key, ttl, value
-        REDIS.get key
+        value = REDIS.get key
       end
 
       value
