@@ -13,8 +13,6 @@ module HumansTxt
     end
 
     def parse
-      found_first_team_member = false
-
       data = {
         team: [],
         site: {}
@@ -32,16 +30,17 @@ module HumansTxt
             if l.match(/^$/) && !ct.empty?
               d[:team] << ct
               ct = {}
-              found_first_team_member = true
             else
               if m = l.strip.match(/(.+?):\s*(.+)/)
                 if ct.empty?
                   ct[:name] = m[2]
                   ct[:role] = m[1]
                 else
-                  cf = m[1].gsub(' ', '_').downcase.to_sym
+                  cf = m[1].gsub(' ', '_').downcase.gsub('e-mail', 'email').to_sym
                   cv = m[2]
+
                   cv = cv.sub('@', 'https://twitter.com/') if cf == :twitter
+                  cv = cv.sub(' [at] ', '@').sub('[at]', '@') if cf == :email
 
                   ct[cf] = cv
                 end
@@ -82,9 +81,6 @@ module HumansTxt
           end
         end
 
-        if found_first_team_member && d[:team].empty? && !ct.empty?
-          d[:team] << ct
-        end
       end.tap { |h|
         h.delete(:site) if h[:site].empty?
       }
