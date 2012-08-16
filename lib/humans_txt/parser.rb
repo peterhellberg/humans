@@ -25,7 +25,7 @@ module HumansTxt
       th = {}
 
       f = txt.split("\n").each_with_object(data) do |l,d|
-        if m = l.strip.match(/^\/\* ([A-Z]+) \*\/$/)
+        if m = l.strip.match(/\/\* ([A-Z]+) \*\/$/)
           cs = m[1].downcase.to_sym
         else
           if cs == :team
@@ -57,11 +57,11 @@ module HumansTxt
           end
 
           if cs == :thanks
-            if l.match(/^$/) && !th.empty?
+            if l.strip.match(/^$/) && !th.empty?
               d[:thanks] << th
               th = {}
             else
-              if m = l.strip.match(/(.+):\s{1,}(.+)/)
+              if m = l.strip.match(/(.+?):\s*(.+)/)
                 if th.empty?
                   th[:role] = m[1]
                   th[:name] = m[2]

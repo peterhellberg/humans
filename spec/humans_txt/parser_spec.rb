@@ -5,6 +5,7 @@ require_relative "../spec_helper"
 describe HumansTxt::Parser do
   subject { HumansTxt::Parser }
 
+  let(:humanstxt)   { s(IO.read('spec/fixtures/humanstxt.org')).parse   }
   let(:c7)          { s(IO.read('spec/fixtures/c7.se')).parse           }
   let(:tv4)         { s(IO.read('spec/fixtures/www.tv4.se')).parse      }
   let(:straypeople) { s(IO.read('spec/fixtures/straypeople.it')).parse  }
@@ -14,10 +15,23 @@ describe HumansTxt::Parser do
 
   describe "parse" do
     it "parses the teams section" do
+      humanstxt[:team].size.must_equal 5
       c7[:team].size.must_equal 1
       tv4[:team].size.must_equal 11
       straypeople[:team].size.must_equal 2
       cb[:team].size.must_equal 3
+      webcat[:team].size.must_equal 4
+    end
+
+    it "parses humanstxt.org correctly" do
+      t = humanstxt[:team].first
+
+      t[:role].must_equal 'Chef'
+      t[:name].must_equal 'Juanjo Bernabeu'
+      t[:contact].must_equal 'hello@humanstxt.org'
+      t[:from].must_equal 'Barcelona, Catalonia, Spain'
+
+      humanstxt[:thanks].size.must_equal 11
     end
 
     it "parses c7.se correctly" do
