@@ -16,7 +16,6 @@ class RedisCache
 
       unless value.nil?
         REDIS.setex key, ttl, value
-        value = REDIS.get key
       end
 
       value

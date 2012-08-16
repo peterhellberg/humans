@@ -9,7 +9,10 @@ gem "sinatra", "~> 1.3.2"
 # Redis
 gem "hiredis", "~> 0.4"
 gem "redis", "~> 3.0", :require => ["redis/connection/hiredis", "redis"]
-gem "fakeredis", "~> 0.4"
+
+group :test do
+  gem "fakeredis", "~> 0.4"
+end
 
 group :development do
   gem "rake"
