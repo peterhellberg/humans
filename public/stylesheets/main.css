@@ -84,7 +84,7 @@
     padding: 0.4em;
     margin-bottom: 0.7em;
   }
-  
+
   header h1 {
     font-size: 4em;
   }
@@ -100,7 +100,7 @@
   }
 
   .hazel {
-    margin: 36px auto 0 auto;
+    margin: 36px auto;
     max-width: 480px;
     text-align: center;
   }
@@ -117,22 +117,17 @@
     -webkit-box-shadow: none;
     box-shadow: none;
     width: auto;
+    margin: 0px auto;
   }
 
-  .content, .sidebar {
+  header h1 {
+    font-size: 3.2em;
+    margin-bottom: 0.2em;
+  }
+
+  .content {
     float: none;
     width: 100%;
-  }
-
-  .sidebar {
-    background: transparent;
-    border: none;
-    padding: 1em 0 0 0;
-    text-align: left;
-  }
-
-  .sidebar img {
-    margin-top: 1em;
   }
 
   h1 {
