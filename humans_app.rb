@@ -20,7 +20,8 @@ class HumansApp < Sinatra::Base
     content_type :json
 
     RedisCache.get("humans:#{params[:host]}", 300) {
-      JSON.pretty_generate HumansTxt.download_and_parse(params[:host], params[:use_ssl])
+      d = HumansTxt.download_and_parse(params[:host], params[:use_ssl])
+      params[:pretty].to_s == 'true' ? JSON.pretty_generate(d) : JSON.dump(d)
     }
   end
 end

@@ -13,9 +13,20 @@ describe HumansApp do
   end
 
   it "returns a pretty JSON" do
-    HumansTxt.stub(:download_and_parse, { foo: 'bar' }) do
-      get '/foo'
-      last_response.body.must_equal "{\n  \"foo\": \"bar\"\n}"
-    end
+    REDIS.stub(:exists, false) {
+      HumansTxt.stub(:download_and_parse, { foo: 'bar' }) {
+        get '/foo?pretty=true'
+        last_response.body.must_equal "{\n  \"foo\": \"bar\"\n}"
+      }
+    }
+  end
+
+  it "returns a single line JSON by default" do
+    REDIS.stub(:exists, false) {
+      HumansTxt.stub(:download_and_parse, { foo: 'bar' }) {
+        get '/foo'
+        last_response.body.must_equal "{\"foo\":\"bar\"}"
+      }
+    }
   end
 end
