@@ -36,7 +36,7 @@
     box-shadow: 0 0 10px rgba(0,0,0,.3);
     margin: 16px auto;
     max-width: 600px;
-    padding: 2.25%; /* 18px / 800px */
+    padding: 2em;
     width: 85%;
   }
 
@@ -67,9 +67,6 @@
 
   pre {
     white-space: pre-wrap;
-    background: #101010;
-    color: #E1E1C3;
-
     color: #333;
     border: 1px solid #eee;
     background-color: #f9f9f9;
@@ -117,9 +114,9 @@
     text-align: center;
   }
 
-  footer.branding {
-    margin-top: 10px;
-    padding-top: 10px;
+  footer {
+    margin-top: 1em;
+    text-align: center;
   }
 }
 
