@@ -1,0 +1,19 @@
+<h2>Parsing your humans.txt into JSON</h2>
+
+<div class="content">
+  <h3>GET /:host?use_ssl=true</h3>
+
+  <dl>
+    <dt>host</dt>
+    <dd>A host (domain) with a humans.txt</dd>
+    <dt>
+      use_ssl
+      <em>(Optional)</em>
+    </dt>
+    <dd>Set to <b>true</b> if your domain requires HTTPS</dd>
+  </dl>
+</div>
+
+<div class="examples">
+  <pre>curl https://humans.herokuapp.com/c7.se | json -i</pre>
+</div>
