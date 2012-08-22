@@ -17,11 +17,17 @@ class HumansApp < Sinatra::Base
   end
 
   get "/:host" do
+    validate_hostname
+
     content_type :json
 
     RedisCache.get("humans:#{params[:host]}", 300) {
       d = HumansTxt.download_and_parse(params[:host], params[:use_ssl])
       params[:pretty].to_s == 'true' ? JSON.pretty_generate(d) : JSON.dump(d)
     }
+  end
+
+  def validate_hostname
+    halt if params[:host].to_s.match(/\.(png|jpg|ico)$/)
   end
 end
