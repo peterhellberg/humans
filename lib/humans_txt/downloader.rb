@@ -23,7 +23,16 @@ module HumansTxt
     end
 
     def available?
-      head_humans_txt.code == '200'
+      response = head_humans_txt
+
+      if ['301', '302'].include?(response.code)
+        uri      = URI.parse response.header['location']
+        @host    = uri.host
+        @use_ssl = uri.scheme == 'https' ? true : false
+        response = head_humans_txt
+      end
+
+      response.code == '200'
     rescue SocketError
       false
     end

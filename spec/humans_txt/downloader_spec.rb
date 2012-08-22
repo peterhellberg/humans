@@ -49,5 +49,21 @@ describe "Downloader" do
       d.stub(:head_humans_txt, status_404) { d.available?.must_equal false }
       d.stub(:head_humans_txt, status_503) { d.available?.must_equal false }
     end
+
+    it "follows a single redirect" do
+      status_301 = OpenStruct.new(code: '301', header: {
+        'location' => 'https://redirected/humans.txt'
+      })
+
+      d.stub(:head_humans_txt, status_301) {
+        d.host.must_equal 'example'
+        d.use_ssl.must_equal false
+
+        d.available?
+
+        d.host.must_equal 'redirected'
+        d.use_ssl.must_equal true
+      }
+    end
   end
 end
