@@ -2,6 +2,10 @@
 
 module HumansTxt
   def self.download_and_parse(host, use_ssl = false)
-    Parser.parse Downloader.get(host, use_ssl)
+    data = Downloader.get(host, use_ssl)
+
+    REDIS.sadd 'hosts_with_humans_txt', host unless data.empty?
+
+    Parser.parse(data)
   end
 end
