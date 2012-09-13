@@ -1,0 +1,19 @@
+/* TEAM */
+
+  Developer:    Peter Hellberg
+  Twitter:      @peterhellberg
+  Location:     Stockholm, Sweden
+
+/* SITE */
+  
+  Source Code:  <https://github.com/peterhellberg/humans/>
+
+  Standards:    HTML5, CSS3, JSON
+
+  Language:     Ruby
+
+  Software:     Vim, Git, Unicorn, Sinatra, Redis
+  
+  Generator:    Hazel <https://github.com/c7/hazel/>
+
+  Hosting:      Heroku <http://heroku.com/>
