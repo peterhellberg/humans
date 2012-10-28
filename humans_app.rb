@@ -21,7 +21,7 @@ class HumansApp < Sinatra::Base
 
     content_type :json
 
-    readthrough_cache do
+    cache do
       d = HumansTxt.download_and_parse(params[:host], params[:use_ssl])
       params[:pretty].to_s == 'true' ? JSON.pretty_generate(d) : JSON.dump(d)
     end
@@ -29,11 +29,13 @@ class HumansApp < Sinatra::Base
 
   private
 
-  def readthrough_cache(&block)
-    if params.has_key? 'cache_disabled'
-      yield
+  def cache(&block)
+    key = "humans:#{params[:host]}"
+
+    if params.has_key? 'invalidate_cache'
+      yield.tap { |value| RedisCache.set(key, value) }
     else
-      RedisCache.get("humans:#{params[:host]}", 300) { yield }
+      RedisCache.get(key, 300) { yield }
     end
   end
 

@@ -23,4 +23,10 @@ class RedisCache
   rescue Redis::CannotConnectError, Errno::ENOENT
     yield
   end
+
+  def self.set(key, value, ttl = 60)
+    REDIS.set key, value
+  rescue Redis::CannotConnectError, Errno::ENOENT
+    # Do nothing
+  end
 end
