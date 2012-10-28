@@ -33,7 +33,13 @@ module HumansTxt
               d[:team] << ct
               ct = {}
             else
-              if m = l.strip.match(/(.+?):\s*(.+)/)
+              #raise Exception, l.lstrip.inspect if l.match(/Otto/)
+
+              if m = l.match(/^\s\s\s$/)
+                if ct.empty?
+                  ct[:name] = :UNKNOWN
+                end
+              elsif m = l.strip.match(/(.+?):\s*(.+)/)
                 if ct.empty?
                   ct[:role] = m[1]
                   ct[:name] = m[2]
@@ -51,6 +57,15 @@ module HumansTxt
                   cv = cv.sub(' [at] ', '@').sub('[at]', '@') if cf == :contact
 
                   ct[cf] = cv
+                end
+              elsif m = l.strip.match(/(.+?)\s*\((.+)\)$/)
+                if ct.empty?
+                  ct[:role] = m[2]
+                  ct[:name] = m[1]
+                end
+              elsif m = l.lstrip.match(/^(.+?)\s+$/)
+                if ct.empty?
+                  ct[:name] = m[1]
                 end
               end
             end
@@ -116,6 +131,8 @@ module HumansTxt
       }
 
       if f[:team].empty? && !ct.empty?
+        f[:team] << ct
+      elsif f[:team].any? && ct.any?
         f[:team] << ct
       elsif f[:team].empty?
         f.tap { |h| h.delete(:team) }

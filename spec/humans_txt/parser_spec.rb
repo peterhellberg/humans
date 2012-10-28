@@ -12,6 +12,7 @@ describe HumansTxt::Parser do
   let(:hero99)      { s(IO.read('spec/fixtures/hero99.com.br')).parse   }
   let(:cb)          { s(IO.read('spec/fixtures/www.camisetas-baratas.com')).parse   }
   let(:webcat)      { s(IO.read('spec/fixtures/webcatbcn.com')).parse   }
+  let(:github)      { s(IO.read('spec/fixtures/github.com')).parse      }
 
   describe "parse" do
     it "parses the teams section" do
@@ -21,6 +22,7 @@ describe HumansTxt::Parser do
       straypeople[:team].size.must_equal 2
       cb[:team].size.must_equal 3
       webcat[:team].size.must_equal 4
+      github[:team].size.must_equal 130
     end
 
     it "parses humanstxt.org correctly" do
@@ -100,6 +102,23 @@ describe HumansTxt::Parser do
 
       webcat[:thanks].first[:role].must_equal 'Rest of the #webcat team'
       webcat[:site][:components][1].must_equal 'FitText.js'
+    end
+
+    it "parses github.com correctly" do
+      t = github[:team]
+
+      t[2][:name].must_equal "PJ Hyett"
+      t[4][:name].must_equal "Tekkub"
+      t[8][:name].must_equal "Zach Holman"
+
+      t[128][:name].must_equal :UNKNOWN
+
+      t[16][:role].must_equal "Octocat Geneticist"
+      t[18][:role].must_equal "Robots! With Lasers!"
+      t[22][:role].must_equal nil
+      t[44][:role].must_equal "Pretty Pretty Man"
+
+      github[:team].map { |e| e[:location] }.uniq.size.must_equal 72
     end
   end
 end
