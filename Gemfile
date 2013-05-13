@@ -1,12 +1,12 @@
-source :rubygems
+source "https://rubygems.org"
 
-ruby "1.9.3"
+ruby "2.0.0"
 
 # Web server
 gem "unicorn"
 
 # App Stack
-gem "sinatra", "~> 1.3.3"
+gem "sinatra", "~> 1.4.2"
 
 # Redis
 gem "hiredis", "~> 0.4"
