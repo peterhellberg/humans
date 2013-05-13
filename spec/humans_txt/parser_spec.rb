@@ -14,6 +14,7 @@ describe HumansTxt::Parser do
   let(:webcat)      { s(IO.read('spec/fixtures/webcatbcn.com')).parse   }
   let(:github)      { s(IO.read('spec/fixtures/github.com')).parse      }
   let(:tito)        { s(IO.read('spec/fixtures/tito.io')).parse         }
+  let(:perishable)  { s(IO.read('spec/fixtures/perishablepress.com')).parse }
 
   describe "parse" do
     it "parses the teams section" do
@@ -129,6 +130,15 @@ describe HumansTxt::Parser do
 
       tito[:team][3][:name].must_equal "Kilian McMahon"
       tito[:team][5][:url].must_equal "https://github.com/paulca"
+    end
+
+    it "parser perishablepress.com correctly" do
+      ps = perishable[:site]
+
+      ps[:site_name].must_equal "Perishable Press"
+      ps[:site_url].must_equal "http://perishablepress.com/"
+      ps[:contact].must_equal "http://perishablepress.com/press/contact/"
+      ps[:location].must_equal ["Washington State", "US"]
     end
   end
 end
