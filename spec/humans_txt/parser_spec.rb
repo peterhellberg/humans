@@ -13,6 +13,7 @@ describe HumansTxt::Parser do
   let(:cb)          { s(IO.read('spec/fixtures/www.camisetas-baratas.com')).parse   }
   let(:webcat)      { s(IO.read('spec/fixtures/webcatbcn.com')).parse   }
   let(:github)      { s(IO.read('spec/fixtures/github.com')).parse      }
+  let(:tito)        { s(IO.read('spec/fixtures/tito.io')).parse         }
 
   describe "parse" do
     it "parses the teams section" do
@@ -119,6 +120,15 @@ describe HumansTxt::Parser do
       t[44][:role].must_equal "Pretty Pretty Man"
 
       github[:team].map { |e| e[:location] }.uniq.size.must_equal 72
+    end
+
+    it "parses tito.io correctly" do
+      tito[:city].must_equal "Dublin"
+      tito[:country].must_equal "Ireland"
+      tito[:emails].must_equal ["support@tito.io"]
+
+      tito[:team][3][:name].must_equal "Kilian McMahon"
+      tito[:team][5][:url].must_equal "https://github.com/paulca"
     end
   end
 end

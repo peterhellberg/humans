@@ -138,6 +138,33 @@ module HumansTxt
         f.tap { |h| h.delete(:team) }
       end
 
+      # Try to find some information at least (tito.io)
+      if f.empty? && !txt.empty? && txt != "{}"
+        # Retrieve the team by looking for rows in the format
+        #
+        # "Name: <URL>"
+        #
+        txt.scan(/^([\w\s'-]+):? (https?:\/\/.+\..+)$/) do |name, url|
+          (f[:team] ||= []) << { name: name.strip, url: url.strip }
+        end
+
+        # Find all email adresses
+        if (emails = txt.scan(/\S+@\S+/)).any?
+          f[:emails] = emails
+        end
+
+        # Find city and country
+        if txt.match(/in (?<city>\S+), (?<country>\S+) by/m)
+          f[:city]    = $~[:city]
+          f[:country] = $~[:country]
+        end
+      end
+
+      # Last resort
+      if f.empty? && !txt.empty? && txt != "{}"
+        f = { text: txt }
+      end
+
       f
     rescue ArgumentError => e
       { error: e }
