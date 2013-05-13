@@ -32,7 +32,7 @@ module HumansTxt
         response = head_humans_txt
       end
 
-      response.code == '200'
+      ['200', '403'].include?(response.code)
     rescue SocketError
       false
     end

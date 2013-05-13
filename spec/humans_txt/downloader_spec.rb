@@ -42,7 +42,13 @@ describe "Downloader" do
       end
     end
 
-    it "returns false if the status isn’t 200" do
+    it "returns true if the status is 403" do
+      d.stub(:head_humans_txt, OpenStruct.new(code: '403')) do
+        d.available?.must_equal true
+      end
+    end
+
+    it "returns false if the status isn’t 200 or 403" do
       status_404 = OpenStruct.new(code: '404')
       status_503 = OpenStruct.new(code: '503')
 
