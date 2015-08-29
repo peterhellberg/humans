@@ -10,13 +10,13 @@
 ## Examples
 
 ```sh
-curl https://humans.herokuapp.com/c7.se | json -i
+curl https://humans.herokuapp.com/c7.se | jq .
 ```
 
 ```sh
-curl https://humans.herokuapp.com/humanstxt.org | json -i
+curl https://humans.herokuapp.com/humanstxt.org | jq .
 ```
 
 ```sh
-curl https://humans.herokuapp.com/cheddarapp.com?use_ssl=true | json -i
+curl https://humans.herokuapp.com/cheddarapp.com?use_ssl=true | jq .
 ```
