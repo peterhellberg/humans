@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 require 'json'
+require 'tilt/erb'
 
 class HumansApp < Sinatra::Base
   set :public_folder => "public", :static => true
