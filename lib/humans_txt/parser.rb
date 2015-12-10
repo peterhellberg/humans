@@ -15,7 +15,6 @@ module HumansTxt
     def parse
       data = {
         team:   [],
-        alumni: [],
         thanks: [],
         site:   {}
       }
@@ -73,6 +72,8 @@ module HumansTxt
           end
 
           if cs == :alumni
+            d[:alumni] != []
+
             if l.strip.match(/^$/) && !ct.empty?
               d[:alumni] << ct
               ct = {}
