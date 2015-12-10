@@ -15,6 +15,7 @@ module HumansTxt
     def parse
       data = {
         team:   [],
+        alumni: [],
         thanks: [],
         site:   {}
       }
@@ -31,6 +32,49 @@ module HumansTxt
           if cs == :team
             if l.strip.match(/^$/) && !ct.empty?
               d[:team] << ct
+              ct = {}
+            else
+              #raise Exception, l.lstrip.inspect if l.match(/Otto/)
+
+              if m = l.match(/^\s\s\s$/)
+                if ct.empty?
+                  ct[:name] = :UNKNOWN
+                end
+              elsif m = l.strip.match(/(.+?):\s*(.+)/)
+                if ct.empty?
+                  ct[:role] = m[1]
+                  ct[:name] = m[2]
+                else
+                  cf = m[1].
+                    gsub(' ', '_').
+                    downcase.
+                    gsub('e-mail', 'contact').
+                    gsub('email', 'contact').
+                    to_sym
+
+                  cv = m[2]
+
+                  cv = cv.sub('@', 'https://twitter.com/') if cf == :twitter
+                  cv = cv.sub(' [at] ', '@').sub('[at]', '@') if cf == :contact
+
+                  ct[cf] = cv
+                end
+              elsif m = l.strip.match(/(.+?)\s*\((.+)\)$/)
+                if ct.empty?
+                  ct[:role] = m[2]
+                  ct[:name] = m[1]
+                end
+              elsif m = l.lstrip.match(/^(.+?)\s+$/)
+                if ct.empty?
+                  ct[:name] = m[1]
+                end
+              end
+            end
+          end
+
+          if cs == :alumni
+            if l.strip.match(/^$/) && !ct.empty?
+              d[:alumni] << ct
               ct = {}
             else
               #raise Exception, l.lstrip.inspect if l.match(/Otto/)
